@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="style.css">
+    <title>Page Title</title>
+    <script type = "text/javascript">
+
+        
+
+        function uncheck(elem){
+            const checkboxes = document.querySelectorAll("div.checkbox input");
+            const element_id = elem.id;
+            checkboxes.forEach((check)=>{
+                const check_id = check.getAttribute("id");
+                if(check_id != element_id){
+                    check.checked = false;
+                }
+            })
+            
+        }
+
+        function calculate(){
+            const income = document.getElementById("main_input").value;
+            const checkboxes = document.querySelectorAll("div.checkbox input");
+            var score = 0
+            var id = ""
+            const check_if_checked = checkboxes.forEach((check)=>{
+                if(check.checked == true){
+                    id = check.getAttribute("id")
+                }
+                
+            });
+            
+            if(id.length > 0){
+                var what_to_count = check_if_checked;
+                if(id === "decim"){
+                    let score = decim(income)
+                    display_score(score)
+                }
+                else{
+                    let score = binary(income)
+                    display_score(score)
+                    
+                }
+            }
+        }
+        
+        function decim(number){
+            var input_number = String(number);
+            var counter = 0
+            var score = 0
+            for(var i=input_number.length-1;i>-1;i=i-1){
+                if(input_number[counter]=="1"){
+                    score += Math.pow(2, i)
+                }
+                counter += 1
+            }
+            
+            return score
+        }
+
+        function binary(number){
+            var input_number = number
+            var score = ""
+            while (input_number > 0) {
+                let reszta = Math.floor(input_number%2)
+                input_number = Math.floor(input_number/2)
+                if(reszta === 1){
+                    score += "1"
+                }
+                else{
+                    score += "0"
+                }
+            }
+            return score
+        }
+
+        function display_score(score){
+            const final_score = score
+            document.getElementById("score").innerHTML = final_score;
+        }
+        
+
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <div class="inputs">
+        <input type="text" placeholder="podaj cyfre" id="main_input">
+        <input type="submit" value="Check", onclick="calculate()">
+
+        <div class="checkbox">
+            <ul>
+                <li><span>Liczby binarne<input type="checkbox" id="binar" value="Liczby binarne" onclick="uncheck(this)"></span></li>
+                <li></li><span>Liczby dziesietne</span></li><input type="checkbox" id="decim" value="Liczby dziesietne" onclick="uncheck(this)"></span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="score"></div>
+</div>
+
+</body>
+</html>
