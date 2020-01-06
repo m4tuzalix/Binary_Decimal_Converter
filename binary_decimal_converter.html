@@ -32,17 +32,24 @@
             });
             
             if(id.length > 0){
-                var what_to_count = check_if_checked;
-                if(id === "decim"){
-                    let score = decim(income)
-                    display_score(score)
+                if(income.length > 0){
+                    if(id === "decim"){
+                    score = decim(income)
+                    
+                    }
+                    else{
+                        score = binary(income)
+
+
+                    }
+                    document.getElementById("score").innerHTML = score;
                 }
                 else{
-                    let score = binary(income)
-                    display_score(score)
-                    
-                }
+                    document.getElementById("score").innerHTML = "Cannot converty empty field";
+                
             }
+            else{
+                document.getElementById("score").innerHTML = "Please check the box you want to convert";
         }
         
         function decim(number){
@@ -75,10 +82,7 @@
             return score
         }
 
-        function display_score(score){
-            const final_score = score
-            document.getElementById("score").innerHTML = final_score;
-        }
+       
         
 
     </script>
